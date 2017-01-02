@@ -1,0 +1,78 @@
+<=https://blog.bypass.kr/280
+
+-작성일 2017-01-02-
+
+ktucloud 에서 centos7.0  1core 1GB 서버를 만들고 google speech를 사용하기 위한 설정을 하는 과정입니다. apache - php 사용했습니다.
+
+yum update
+yum install -y epel-release
+rpm -ivh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum --enablerepo=remi update remi-release
+yum --enablerepo=remi-php70 install -y php php-fpm php-mysql
+
+=============================================
+systemctl start php-fpm   // php 시작 
+systemctl enable php-fpm  // php 부팅시 자동 실행
+systemctl status php-fpm  // php 상태 확인
+systemctl stop php-fpm    // php 정지
+=============================================
+
+vi /etc/php.ini
+php.ini
+
+cgi.fix_pathinfo = 0
+allow_url_fopen = Off
+expose_php = Off
+display_errors = Off
+cgi.fix_pathinfo = 0
+ 
+===============
+systemctl --failed
+
+/etc/httpd/conf/httpd.conf 에서 
+	ServerName에 아이피 주소입력.
+	DocumentRoot로 사용할 디렉토리 입력
+	아래쪽 <Dicrectory "/var/www"> 에서 /var/www 부분을 DocumentRoot와 같게 입력  
+ 
+방화벽을 해제
+systemctl disable firewalld
+firewall-cmd --permanent --add-service=http
+====추가방법===============================================
+firewall-cmd --add-service=http   ( --add-port=8080/tcp)
+=========================================================
+
+/etc/httpd/conf.d/php.conf 에서 AddType밑에 한줄추가
+AddType application/x-httpd-php .php .html
+
+reboot
+
+DocumentRoot에 index.html파일을 만들고 브라우저로 접속해봅니다. 페이지가 뜨지 않으면 방화벽이나 포트포워딩 설정을 체크해봅니다.
+
+//컴포저 설치
+yum -y update
+curl -sS https://getcomposer.org/installer | php
+chmod +x composer.phar
+mv composer.phar /usr/local/bin/composer
+composer -V
+
+
+
+https://cloud.google.com/php/quickstarts 에서 USE FLEXIBLE ENVIRONMENT 를 선택
+
+구글 Cloud SDK 를 다운로드 https://cloud.google.com/sdk/docs/
+wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-138.0.0-linux-x86_64.tar.gz
+압축을 풀고 install.sh로 설치진행
+bin폴더에서 gcloud init
+웹을 통해 인증후, 인증키를 입력하는 과정을 거칩니다.
+
+composer require google/cloud       
+ (홈페이지 http://googlecloudplatform.github.io/google-cloud-php/#/ )
+ (php소스에서 vender/autoload 를 사용할수 있게 됩니다.)
+
+git clone https://github.com/GoogleCloudPlatform/google-cloud-php.git
+ (홈페이지 https://github.com/GoogleCloudPlatform/google-cloud-php )
+
+
+이후작업은 
+  https://cloud.google.com/storage/docs/json_api/v1/libraries  에서 소스코드를 참고해서 진행합니다.
+
