@@ -1,10 +1,10 @@
 <? 
-	//작성일 2017-01-02
+    //작성일 2017-01-02
 
-	include_once $_SERVER['DOCUMENT_ROOT']. '/vendor/autoload.php';
+    iclude_once $_SERVER['DOCUMENT_ROOT']. '/vendor/autoload.php';
 
-	//https://console.developers.google.com -> 사용자 인증정보 -> 사용자 인증 정보 만들기 -> 서비스 계정 키 -> JSON
-    putenv('GOOGLE_APPLICATION_CREDENTIALS=/data/selfin/www/SpeakSam-fbe8233b833b.json');
+     //https://console.developers.google.com -> 사용자 인증정보 -> 사용자 인증 정보 만들기 -> 서비스 계정 키 -> JSON
+    putenv('GOOGLE_APPLICATION_CREDENTIALS=/xxxx/xxxxx.json');
 
     $client = new Google_Client();
     $client->useApplicationDefaultCredentials();
@@ -15,8 +15,4 @@
     $access_token = $token['access_token'];
     
     echo $access_token;
-        
-    result('1','success'); 
-
-
 ?>
