@@ -1,6 +1,4 @@
-<=https://blog.bypass.kr/280
-https://blog.bypass.kr/280
-
+<?
 -작성일 2017-01-02-
 
 ktucloud 에서 centos7.0  1core 1GB 서버를 만들고 google speech를 사용하기 위한 설정을 하는 과정입니다. apache - php 사용했습니다.
