@@ -10,6 +10,7 @@
 		참고사이트 http://ffmpeg.org/download.html
 		https://github.com/FFmpeg/FFmpeg.git
 		http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+		http://b1ix.net/184
 	1.2 변환옵션	    
 		PCM LINEAR 16bit 16000hz Mono   (Stereo일시 추출이 잘 안됩니다.)
 		ffmpeg -i ORIGINAL -y -f s16le -acodec pcm_s16le -ar 16000 -ac 1 TARGET.raw 
