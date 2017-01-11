@@ -139,6 +139,12 @@
 		
 		print_r($json);
 	?>
-		
+	
 
-
+Reference
+ async 문서 https://cloud.google.com/speech/reference/rest/v1beta1/RecognitionConfig
+ php CURL로 작성하는방법 http://stackoverflow.com/questions/39737913/google-speech-api-sample-rate-in-request-does-not-match-flac-header
+ 왜 LINEAR16으로 해야하는가 https://cloud.google.com/speech/docs/encoding
+ LINEAR16인코딩ffmpeg   https://trac.ffmpeg.org/wiki/audio%20types
+ 스트리밍 api https://cloud.google.com/speech/docs/basics
+ 버킷페이지 https://cloud.google.com/storage/docs/cloud-console
