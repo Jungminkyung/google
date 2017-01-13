@@ -7,7 +7,9 @@ yum update
 yum install -y epel-release
 rpm -ivh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum --enablerepo=remi update remi-release
+
 yum --enablerepo=remi-php70 install -y php php-fpm php-mysql
+yum install -y --enablerepo=remi --enablerepo=remi-php70 php php-devel php-mbstring php-mcrypt php-mysql php-phpunit-PHPUnit php-gd ( 출처: http://richellin.tistory.com/4 [라이첼린의 블로그] )
 
 =============================================
 systemctl start php-fpm   // php 시작 
