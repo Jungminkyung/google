@@ -10,6 +10,7 @@
 		참고사이트 http://ffmpeg.org/download.html
 		https://github.com/FFmpeg/FFmpeg.git
 		http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+		http://b1ix.net/184
 	1.2 변환옵션	    
 		PCM LINEAR 16bit 16000hz Mono   (Stereo일시 추출이 잘 안됩니다.)
 		ffmpeg -i ORIGINAL -y -f s16le -acodec pcm_s16le -ar 16000 -ac 1 TARGET.raw 
@@ -138,6 +139,12 @@
 		
 		print_r($json);
 	?>
-		
+	
 
-
+Reference
+ async 문서 https://cloud.google.com/speech/reference/rest/v1beta1/RecognitionConfig
+ php CURL로 작성하는방법 http://stackoverflow.com/questions/39737913/google-speech-api-sample-rate-in-request-does-not-match-flac-header
+ 왜 LINEAR16으로 해야하는가 https://cloud.google.com/speech/docs/encoding
+ LINEAR16인코딩ffmpeg   https://trac.ffmpeg.org/wiki/audio%20types
+ 스트리밍 api https://cloud.google.com/speech/docs/basics
+ 버킷페이지 https://cloud.google.com/storage/docs/cloud-console
