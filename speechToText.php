@@ -148,3 +148,5 @@ Reference
  LINEAR16인코딩ffmpeg   https://trac.ffmpeg.org/wiki/audio%20types
  스트리밍 api https://cloud.google.com/speech/docs/basics
  버킷페이지 https://cloud.google.com/storage/docs/cloud-console
+
+ bill : https://cloud.google.com/pricing/?hl=ko&_ga=1.193398829.1280065514.1482394483
