@@ -1,0 +1,109 @@
+구글 얼굴인식 API 사용법입니다.
+
+https://cloud.google.com/vision/docs/detecting-faces#vision-face-detection-gcs-php
+
+사용전에 필요한것
+ 1.인증json파일 - https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.17882745.-1359392251.1544664908&_gac=1.11821824.1545130008.EAIaIQobChMItpfE6Jmp3wIVGamWCh0uKAArEAAYASAAEgIGpvD_BwE
+ 2.billing 설정이 되어있어야 합니다.
+ 3.vision API ON  - https://cloud.google.com/vision/docs/before-you-begin?hl=ko
+                    https://console.cloud.google.com/flows/enableapi?apiid=vision.googleapis.com&redirect=https:%2F%2Fconsole.cloud.google.com&hl=ko&_ga=2.207878226.-1359392251.1544664908&_gac=1.174925462.1545130008.EAIaIQobChMItpfE6Jmp3wIVGamWCh0uKAArEAAYASAAEgIGpvD_BwE
+                    
+php에 bcmath 라이브러리가 깔려 있어야 한다.
+ yum search bcmath 
+ yum install php70-php-bcmath.x86_64
+ /etc/php.ini 에서  extension=/opt/remi/php70/root/usr/lib64/php/modules/bcmath.so
+
+
+인스톨 ( 참고 : https://cloud.google.com/vision/docs/libraries#client-libraries-usage-php )
+   composer require google/cloud-vision               
+
+환경변수를 php파일내에서 설정해준다.
+putenv('GOOGLE_APPLICATION_CREDENTIALS=/xxxxxxxxxxxxxxxxxxxxx-fbe8233b833b.json');
+
+example ( https://cloud.google.com/vision/docs/detecting-faces#vision-face-detection-gcs-php  )
+
+
+
+```
+ namespace Google\Cloud\Samples\Vision;
+
+use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+
+// $path = 'path/to/your/image.jpg'
+
+function detect_face($path, $outFile = null)
+{
+    $imageAnnotator = new ImageAnnotatorClient();
+
+    # annotate the image
+    $image = file_get_contents($path);
+    $response = $imageAnnotator->faceDetection($image);
+    $faces = $response->getFaceAnnotations();
+
+    # names of likelihood from google.cloud.vision.enums
+    $likelihoodName = ['UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY',
+    'POSSIBLE','LIKELY', 'VERY_LIKELY'];
+
+    printf("%d faces found:" . PHP_EOL, count($faces));
+    foreach ($faces as $face) {
+        $anger = $face->getAngerLikelihood();
+        printf("Anger: %s" . PHP_EOL, $likelihoodName[$anger]);
+
+        $joy = $face->getJoyLikelihood();
+        printf("Joy: %s" . PHP_EOL, $likelihoodName[$joy]);
+
+        $surprise = $face->getSurpriseLikelihood();
+        printf("Surprise: %s" . PHP_EOL, $likelihoodName[$surprise]);
+
+        # get bounds
+        $vertices = $face->getBoundingPoly()->getVertices();
+        $bounds = [];
+        foreach ($vertices as $vertex) {
+            $bounds[] = sprintf('(%d,%d)', $vertex->getX(), $vertex->getY());
+        }
+        print('Bounds: ' . join(', ',$bounds) . PHP_EOL);
+        print(PHP_EOL);
+    }
+
+    # draw box around faces
+    if ($faces && $outFile) {
+        $imageCreateFunc = [
+            'png' => 'imagecreatefrompng',
+            'gd' => 'imagecreatefromgd',
+            'gif' => 'imagecreatefromgif',
+            'jpg' => 'imagecreatefromjpeg',
+            'jpeg' => 'imagecreatefromjpeg',
+        ];
+        $imageWriteFunc = [
+            'png' => 'imagepng',
+            'gd' => 'imagegd',
+            'gif' => 'imagegif',
+            'jpg' => 'imagejpeg',
+            'jpeg' => 'imagejpeg',
+        ];
+
+        copy($path, $outFile);
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        if (!array_key_exists($ext, $imageCreateFunc)) {
+            throw new \Exception('Unsupported image extension');
+        }
+        $outputImage = call_user_func($imageCreateFunc[$ext], $outFile);
+        foreach ($faces as $face) {
+            $vertices = $face->getBoundingPoly()->getVertices();
+            if ($vertices) {
+                $x1 = $vertices[0]->getX();
+                $y1 = $vertices[0]->getY();
+                $x2 = $vertices[2]->getX();
+                $y2 = $vertices[2]->getY();
+                imagerectangle($outputImage, $x1, $y1, $x2, $y2, 0x00ff00);
+            }
+        }
+        call_user_func($imageWriteFunc[$ext], $outputImage, $outFile);
+        printf('Output image written to %s' . PHP_EOL, $outFile);
+    }
+}
+```
+
+결과 1 faces found: Anger: VERY_UNLIKELY Joy: VERY_UNLIKELY Surprise: VERY_UNLIKELY Bounds: (209,173), (540,173), (540,479), (209,479)
+
+ 
