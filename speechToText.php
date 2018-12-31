@@ -150,3 +150,14 @@ Reference
  버킷페이지 https://cloud.google.com/storage/docs/cloud-console
 
  bill : https://cloud.google.com/pricing/?hl=ko&_ga=1.193398829.1280065514.1482394483
+
+
+
+===v1업그레이드=======
+v1레퍼런스 https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1?hl=ko#google.cloud.speech.v1.RecognitionConfig.AudioEncoding
+자동인식	https://cloud.google.com/speech-to-text/docs/basics?hl=ko#phrase-hints
+오디오 인코딩 타입 https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1?hl=ko#google.cloud.speech.v1.RecognitionConfig
+v1 설명 https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1?hl=ko#google.cloud.speech.v1.Speech.Recognize
+
+요청주소 수정 https://speech.googleapis.com/v1/speech:longrunningrecognize
+SyncRequest 파일에서 샘플레이트가 sampleRateHertz 로 바뀌었다.
