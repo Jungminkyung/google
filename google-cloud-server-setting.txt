@@ -81,4 +81,5 @@ git clone https://github.com/GoogleCloudPlatform/google-cloud-php.git
 
 composer.json 파일안에 "google/cloud":"^0.97.0" 으로 변경후에 composer update
 
-
+주요사이트  https://cloud.google.com/speech-to-text/docs/quickstart
+           https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries?refresh=1#client-libraries-install-php
