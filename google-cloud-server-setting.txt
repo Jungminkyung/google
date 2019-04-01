@@ -76,4 +76,9 @@ git clone https://github.com/GoogleCloudPlatform/google-cloud-php.git
 
 이후작업은 
   https://cloud.google.com/storage/docs/json_api/v1/libraries  에서 소스코드를 참고해서 진행합니다.
+  
+업데이트방법
+
+composer.json 파일안에 "google/cloud":"^0.97.0" 으로 변경후에 composer update
+
 
