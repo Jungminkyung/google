@@ -161,3 +161,5 @@ v1 설명 https://cloud.google.com/speech-to-text/docs/reference/rpc/google.clou
 
 요청주소 수정 https://speech.googleapis.com/v1/speech:longrunningrecognize
 SyncRequest 파일에서 샘플레이트가 sampleRateHertz 로 바뀌었다.
+
+Google Cloud Speech API를 브라우저에서 사용하기 https://blog.shik.kr/google-cloud-speech-api-at-browser/ 
